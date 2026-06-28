@@ -9,19 +9,21 @@ const serviceMap: Record<string, string | undefined> = {
   audit: process.env.DISCORD_WEBHOOK_LEAD_DATABASE
 };
 
+function addUniqueWebhookUrl(list: string[], url: string | undefined) {
+  if (!url) return;
+  if (list.indexOf(url) === -1) list.push(url);
+}
+
 export function getLeadWebhookUrls(lead: LeadRecord) {
-  const urls = [
-    process.env.DISCORD_WEBHOOK_ALL_SUBMISSIONS,
-    process.env.DISCORD_WEBHOOK_LEAD_DATABASE,
-    serviceMap[String(lead.serviceType)]
-  ];
-
-  if (lead.priority === "high") urls.push(process.env.DISCORD_WEBHOOK_HIGH_PRIORITY);
-
   const uniqueUrls: string[] = [];
-  urls.forEach((url) => {
-    if (url && !uniqueUrls.includes(url)) uniqueUrls.push(url);
-  });
+
+  addUniqueWebhookUrl(uniqueUrls, process.env.DISCORD_WEBHOOK_ALL_SUBMISSIONS);
+  addUniqueWebhookUrl(uniqueUrls, process.env.DISCORD_WEBHOOK_LEAD_DATABASE);
+  addUniqueWebhookUrl(uniqueUrls, serviceMap[String(lead.serviceType)]);
+
+  if (lead.priority === "high") {
+    addUniqueWebhookUrl(uniqueUrls, process.env.DISCORD_WEBHOOK_HIGH_PRIORITY);
+  }
 
   return uniqueUrls;
 }
