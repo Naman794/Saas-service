@@ -2,12 +2,20 @@
 
 import { useState } from "react";
 import { Send } from "lucide-react";
+import type { ServiceType } from "@/lib/site-data";
 
-const serviceTypes = ["community", "website", "backend", "automation", "consulting", "audit"];
+const serviceTypes: { label: string; value: ServiceType }[] = [
+  { label: "Community Systems", value: "community" },
+  { label: "Website & SaaS Builds", value: "website" },
+  { label: "Backend Systems", value: "backend" },
+  { label: "Automation Workflows", value: "automation" },
+  { label: "Growth Consulting", value: "consulting" },
+  { label: "System Audit", value: "audit" }
+];
 const budgets = ["Under ₹25K", "₹25K–₹50K", "₹50K–₹1L", "₹1L+", "Not sure yet"];
 const timelines = ["ASAP", "7 days", "2–4 weeks", "1–2 months", "Flexible"];
 
-export default function LeadForm() {
+export default function LeadForm({ initialService = "website", sourcePage = "homepage" }: { initialService?: ServiceType; sourcePage?: string }) {
   const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
   const [message, setMessage] = useState("");
 
@@ -34,21 +42,20 @@ export default function LeadForm() {
     }
 
     setStatus("success");
-    setMessage(`Lead captured. Reference: ${data.leadId}`);
+    setMessage(`Lead captured. Reference: ${data.leadId || "submitted"}`);
     form.reset();
   }
 
   return (
-    <form onSubmit={onSubmit} className="glass mt-10 grid gap-4 rounded-[2rem] p-5 md:grid-cols-2 md:p-8">
+    <form onSubmit={onSubmit} className="glass grid gap-4 rounded-[2rem] p-5 green-glow md:grid-cols-2 md:p-8">
       <input className="input" name="name" placeholder="Your name" required />
       <input className="input" name="email" type="email" placeholder="Email" required />
       <input className="input" name="phone" placeholder="WhatsApp / phone" />
       <input className="input" name="company" placeholder="Company / brand" />
       <input className="input md:col-span-2" name="websiteOrSocial" placeholder="Website, Instagram, LinkedIn or Discord link" />
 
-      <select className="input" name="serviceType" required defaultValue="">
-        <option value="" disabled>Service needed</option>
-        {serviceTypes.map((service) => <option key={service} value={service}>{service}</option>)}
+      <select className="input" name="serviceType" required defaultValue={initialService}>
+        {serviceTypes.map((service) => <option key={service.value} value={service.value}>{service.label}</option>)}
       </select>
 
       <select className="input" name="budgetRange" required defaultValue="">
@@ -70,9 +77,9 @@ export default function LeadForm() {
 
       <textarea className="input min-h-36 md:col-span-2" name="projectDetails" placeholder="Explain what you want to build, current problem, must-have features and expected outcome." required />
       <input className="hidden" name="companyWebsite" tabIndex={-1} autoComplete="off" />
-      <input type="hidden" name="sourcePage" value="homepage" />
+      <input type="hidden" name="sourcePage" value={sourcePage} />
 
-      <button disabled={status === "loading"} className="inline-flex items-center justify-center gap-2 rounded-full bg-gradient-to-r from-purple-500 to-cyan-400 px-6 py-3 font-semibold text-white md:col-span-2">
+      <button disabled={status === "loading"} className="inline-flex items-center justify-center gap-2 rounded-full bg-neon px-6 py-3 font-semibold text-black transition hover:bg-emerald-300 md:col-span-2">
         {status === "loading" ? "Submitting..." : "Submit Project Request"} <Send size={18} />
       </button>
 

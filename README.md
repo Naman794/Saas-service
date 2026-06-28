@@ -1,12 +1,12 @@
 # SaaS Service Studio
 
-A premium Next.js website for selling SaaS-style services: community systems, websites, backend setup, automation, and consulting.
+A premium SaaS-style consultancy website for community systems, websites, backend setup, automation, and growth consulting.
 
 ## Stack
 
-- Next.js App Router
+- Next.js 14 App Router
 - TypeScript
-- Tailwind CSS
+- Tailwind CSS v3
 - Discord webhooks as temporary storage
 - MongoDB-ready storage adapter for later migration
 - Vercel hosting
@@ -35,6 +35,21 @@ Create separate Discord channels and webhooks for:
 - `#error-logs`
 
 Add the webhook URLs to `.env.local` and Vercel environment variables.
+
+## Pages
+
+- `/`
+- `/services`
+- `/services/community-systems`
+- `/services/website-saas-builds`
+- `/services/backend-systems`
+- `/services/automation`
+- `/services/consulting`
+- `/process`
+- `/pricing`
+- `/case-studies`
+- `/contact`
+- `/book-call`
 
 ## Architecture
 

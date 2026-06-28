@@ -1,103 +1,168 @@
-import { ArrowRight, Bot, Code2, Database, MessageSquare, Rocket, ShieldCheck } from "lucide-react";
+import Link from "next/link";
+import { ArrowRight, CheckCircle2, Clock3, MessageSquare, RadioTower, ShieldCheck, Zap } from "lucide-react";
+import PageShell from "@/components/page-shell";
+import SectionHeading from "@/components/section-heading";
+import SystemCore from "@/components/system-core";
+import ServiceCard from "@/components/service-card";
 import LeadForm from "@/components/lead-form";
+import { packages, processSteps, services } from "@/lib/site-data";
 
-const services = [
-  { icon: MessageSquare, title: "Community Systems", text: "Discord, Reddit, Telegram and creator community setup with roles, flows, moderation and engagement loops." },
-  { icon: Code2, title: "Website Builds", text: "Premium landing pages, SaaS websites, portfolios and conversion-focused service pages." },
-  { icon: Database, title: "Backend Systems", text: "Dashboards, forms, lead routing, internal tools, databases and workflow architecture." },
-  { icon: Bot, title: "Automation", text: "Discord alerts, webhook workflows, CRM pipelines, onboarding flows and operating systems." },
-  { icon: Rocket, title: "Growth Consulting", text: "Community growth, creator ecosystems, monetization, content strategy and launch planning." },
-  { icon: ShieldCheck, title: "System Audits", text: "Audit your website, community, backend, funnel or growth system and get a clear execution roadmap." }
+const metrics = [
+  ["150+", "Projects Delivered"],
+  ["98%", "Client Satisfaction"],
+  ["24/7", "Automation Running"],
+  ["2M+", "Users Impacted"]
 ];
+
+const problems = ["Scattered tools", "No lead tracking", "Weak community engagement", "Manual backend work", "Poor conversion pages", "No automation"];
+const solutions = ["Centralized workflows", "Discord-based logging", "Growth loops", "Backend-ready logic", "Conversion-focused pages", "Automated routing"];
+const liveEvents = ["Lead Captured", "Discord Alert Sent", "Workflow Triggered", "Priority Lead Routed", "Owner Notified"];
 
 export default function Home() {
   return (
-    <main className="min-h-screen overflow-hidden bg-bg bg-grid">
-      <section className="relative px-6 py-6">
-        <div className="absolute inset-0 -z-10 bg-[radial-gradient(circle_at_top_left,rgba(124,58,237,0.35),transparent_35%),radial-gradient(circle_at_80%_20%,rgba(14,165,233,0.22),transparent_30%)]" />
-        <nav className="mx-auto flex max-w-7xl items-center justify-between rounded-2xl border border-white/10 bg-white/5 px-5 py-4 backdrop-blur">
-          <a href="/" className="font-semibold tracking-tight">SaaS Service Studio</a>
-          <div className="hidden gap-6 text-sm text-white/70 md:flex">
-            <a href="#services">Services</a>
-            <a href="#process">Process</a>
-            <a href="#lead-form">Start Project</a>
+    <PageShell>
+      <section className="mx-auto grid max-w-7xl gap-12 px-6 py-20 lg:grid-cols-[0.95fr_1.05fr] lg:items-center lg:px-8 lg:py-28">
+        <div>
+          <div className="mb-6 inline-flex rounded-full border border-neon/25 bg-neon/10 px-4 py-2 text-sm font-medium text-neon">Build. Automate. Scale.</div>
+          <h1 className="max-w-4xl text-5xl font-black leading-[1.02] tracking-tight md:text-7xl">We build. We automate. You <span className="text-neon">scale.</span></h1>
+          <p className="mt-6 max-w-2xl text-lg leading-8 text-white/62">Complete systems for communities, websites, backends, automation workflows and growth operations.</p>
+          <div className="mt-8 flex flex-col gap-3 sm:flex-row">
+            <Link href="/book-call" className="inline-flex items-center justify-center gap-2 rounded-full bg-neon px-6 py-3 font-semibold text-black transition hover:bg-emerald-300">Start a Project <ArrowRight size={18} /></Link>
+            <Link href="/process" className="inline-flex items-center justify-center gap-2 rounded-full border border-neon/35 px-6 py-3 font-semibold text-neon transition hover:bg-neon/10">See How It Works</Link>
           </div>
-          <a href="#lead-form" className="rounded-full bg-white px-4 py-2 text-sm font-semibold text-black">Book a Build Call</a>
-        </nav>
+        </div>
+        <SystemCore />
+      </section>
 
-        <div className="mx-auto grid max-w-7xl gap-12 py-24 lg:grid-cols-[1.1fr_0.9fr] lg:items-center">
-          <div>
-            <div className="mb-5 inline-flex rounded-full border border-purple-400/30 bg-purple-500/10 px-4 py-2 text-sm text-purple-100">Community • Websites • Backend • Automation • Consulting</div>
-            <h1 className="max-w-4xl text-5xl font-black tracking-tight md:text-7xl">Build the systems behind your community, website and digital business.</h1>
-            <p className="mt-6 max-w-2xl text-lg leading-8 text-white/70">A premium build studio for founders, creators, communities and brands that need launch-ready infrastructure, backend workflows and growth systems.</p>
-            <div className="mt-8 flex flex-col gap-3 sm:flex-row">
-              <a href="#lead-form" className="inline-flex items-center justify-center gap-2 rounded-full bg-gradient-to-r from-purple-500 to-cyan-400 px-6 py-3 font-semibold text-white shadow-glow">Start a Project <ArrowRight size={18} /></a>
-              <a href="#services" className="inline-flex items-center justify-center rounded-full border border-white/15 px-6 py-3 font-semibold text-white/90">Explore Services</a>
+      <section className="mx-auto max-w-7xl px-6 lg:px-8">
+        <div className="glass grid gap-5 rounded-[2rem] p-5 md:grid-cols-4 md:p-8">
+          {metrics.map(([value, label]) => (
+            <div key={label} className="rounded-3xl border border-white/10 bg-black/20 p-6 text-center">
+              <p className="text-3xl font-black text-white">{value}</p>
+              <p className="mt-2 text-sm text-white/48">{label}</p>
             </div>
-          </div>
-
-          <div className="glass rounded-[2rem] p-5 shadow-glow">
-            <div className="rounded-[1.5rem] border border-white/10 bg-black/30 p-5">
-              <div className="mb-6 flex items-center justify-between">
-                <p className="text-sm text-white/60">Live system preview</p>
-                <span className="rounded-full bg-emerald-400/10 px-3 py-1 text-xs text-emerald-300">Webhook active</span>
-              </div>
-              {[
-                ["New website lead", "₹50K–₹1L • urgent timeline"],
-                ["Discord alert routed", "Sent to #website-leads + #high-priority"],
-                ["Backend workflow", "Lead scored, tagged and archived"],
-                ["Owner action", "Ready for follow-up call"]
-              ].map(([title, text]) => (
-                <div key={title} className="mb-3 rounded-2xl border border-white/10 bg-white/5 p-4">
-                  <p className="font-semibold">{title}</p>
-                  <p className="mt-1 text-sm text-white/55">{text}</p>
-                </div>
-              ))}
-            </div>
-          </div>
+          ))}
         </div>
       </section>
 
-      <section id="services" className="mx-auto max-w-7xl px-6 py-20">
-        <p className="text-sm font-semibold uppercase tracking-[0.25em] text-purple-300">Service stack</p>
-        <h2 className="mt-3 max-w-3xl text-4xl font-black md:text-5xl">Everything needed to turn ideas into operating systems.</h2>
+      <section className="mx-auto max-w-7xl px-6 py-24 lg:px-8" id="services">
+        <SectionHeading eyebrow="What we build" title="Infrastructure for digital businesses that need speed, structure and scale." text="Pick one service or combine multiple into a full operating system." />
         <div className="mt-10 grid gap-5 md:grid-cols-2 lg:grid-cols-3">
-          {services.map((service) => <ServiceCard key={service.title} {...service} />)}
+          {services.map((service) => <ServiceCard key={service.slug} icon={service.icon as never} label={service.label} short={service.short} href={`/services/${service.slug}`} />)}
         </div>
       </section>
 
-      <section id="process" className="mx-auto max-w-7xl px-6 py-20">
-        <div className="glass rounded-[2rem] p-8 md:p-12">
-          <p className="text-sm font-semibold uppercase tracking-[0.25em] text-cyan-300">Build process</p>
-          <div className="mt-8 grid gap-4 md:grid-cols-5">
-            {["Diagnose", "Architect", "Build", "Automate", "Scale"].map((step, index) => (
-              <div key={step} className="rounded-2xl border border-white/10 bg-white/5 p-5">
-                <p className="text-sm text-white/45">0{index + 1}</p>
-                <h3 className="mt-3 text-xl font-bold">{step}</h3>
+      <section className="mx-auto max-w-7xl px-6 pb-24 lg:px-8">
+        <div className="grid gap-6 lg:grid-cols-2">
+          <div className="glass rounded-[2rem] p-8">
+            <p className="text-sm font-semibold uppercase tracking-[0.25em] text-red-300">Before</p>
+            <h2 className="mt-4 text-3xl font-black">Common problems</h2>
+            <div className="mt-8 grid gap-3">
+              {problems.map((item) => <Pill key={item} text={item} />)}
+            </div>
+          </div>
+          <div className="glass rounded-[2rem] border-neon/20 p-8 green-glow">
+            <p className="text-sm font-semibold uppercase tracking-[0.25em] text-neon">After</p>
+            <h2 className="mt-4 text-3xl font-black">System-based solutions</h2>
+            <div className="mt-8 grid gap-3">
+              {solutions.map((item) => <Pill key={item} text={item} positive />)}
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section className="mx-auto max-w-7xl px-6 pb-24 lg:px-8">
+        <div className="grid gap-8 lg:grid-cols-[0.9fr_1.1fr] lg:items-center">
+          <SectionHeading eyebrow="Live system preview" title="Make the Discord webhook flow look like a command center." text="Every submission becomes a structured record, then routes into the right Discord channels based on service type and priority." />
+          <div className="glass rounded-[2rem] p-5">
+            {liveEvents.map((event, index) => (
+              <div key={event} className="mb-3 flex items-center gap-4 rounded-2xl border border-white/10 bg-black/25 p-4 last:mb-0">
+                <span className="grid h-10 w-10 place-items-center rounded-full bg-neon/10 text-neon"><RadioTower size={18} /></span>
+                <div className="flex-1">
+                  <p className="font-semibold">{event}</p>
+                  <p className="text-sm text-white/45">System event #{index + 1} routed successfully</p>
+                </div>
+                <span className="text-xs text-white/35">2m ago</span>
               </div>
             ))}
           </div>
         </div>
       </section>
 
-      <section id="lead-form" className="mx-auto max-w-4xl px-6 py-20">
-        <div className="text-center">
-          <p className="text-sm font-semibold uppercase tracking-[0.25em] text-purple-300">Start here</p>
-          <h2 className="mt-3 text-4xl font-black md:text-5xl">Tell us what you want to build.</h2>
-          <p className="mt-4 text-white/60">Your submission is validated server-side and routed to Discord channels as structured lead records.</p>
+      <section className="mx-auto max-w-7xl px-6 pb-24 lg:px-8">
+        <SectionHeading eyebrow="Process" title="A clean path from idea to operating system." center />
+        <div className="mt-10 grid gap-5 md:grid-cols-5">
+          {processSteps.map((step) => (
+            <div key={step.step} className="glass rounded-[1.5rem] p-5">
+              <p className="text-sm text-neon">{step.step}</p>
+              <h3 className="mt-4 text-xl font-bold">{step.title}</h3>
+              <p className="mt-3 text-sm leading-6 text-white/52">{step.text}</p>
+            </div>
+          ))}
         </div>
-        <LeadForm />
       </section>
-    </main>
+
+      <section className="mx-auto max-w-7xl px-6 pb-24 lg:px-8">
+        <SectionHeading eyebrow="Packages" title="Start with a focused build or go full infrastructure." text="Pricing depends on scope, integrations and timeline." />
+        <div className="mt-10 grid gap-5 lg:grid-cols-3">
+          {packages.map((item) => <PricingCard key={item.name} {...item} />)}
+        </div>
+      </section>
+
+      <section className="mx-auto max-w-7xl px-6 pb-24 lg:px-8">
+        <div className="glass rounded-[2rem] p-8 md:p-10">
+          <SectionHeading eyebrow="Proof style" title="Designed for community, creator and growth operations." text="Use this area for real case studies as you collect more proof. For now, the cards focus on system outcomes instead of fake client claims." />
+          <div className="mt-8 grid gap-4 md:grid-cols-3">
+            {["Community growth systems", "Creator ecosystem ops", "Website + automation stack"].map((item) => (
+              <div key={item} className="rounded-2xl border border-white/10 bg-white/[0.03] p-5">
+                <ShieldCheck className="text-neon" />
+                <h3 className="mt-4 text-lg font-bold">{item}</h3>
+                <p className="mt-3 text-sm leading-6 text-white/52">Reusable systems for visibility, conversion, routing and execution.</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section className="mx-auto max-w-5xl px-6 pb-24 lg:px-8">
+        <SectionHeading eyebrow="Start here" title="Tell us what you want to build." text="The form validates your request, scores the lead and routes it into the right Discord channel." center />
+        <div className="mt-10"><LeadForm sourcePage="homepage" /></div>
+      </section>
+
+      <section className="mx-auto max-w-5xl px-6 pb-24 lg:px-8">
+        <SectionHeading eyebrow="FAQ" title="Questions before starting?" center />
+        <div className="mt-10 grid gap-4">
+          {[
+            ["Do you only build websites?", "No. The core offer includes websites, communities, backend systems, automation and consulting."],
+            ["Can this use Discord webhooks now?", "Yes. The MVP uses Discord webhooks as a temporary structured logging layer."],
+            ["Can we move to MongoDB later?", "Yes. The storage layer is adapter-based so MongoDB can replace Discord storage later."],
+            ["Can you build separate service pages?", "Yes. The site already includes dedicated pages for all core services."]
+          ].map(([q, a]) => (
+            <div key={q} className="glass rounded-2xl p-5">
+              <h3 className="font-semibold">{q}</h3>
+              <p className="mt-2 text-white/55">{a}</p>
+            </div>
+          ))}
+        </div>
+      </section>
+    </PageShell>
   );
 }
 
-function ServiceCard({ icon: Icon, title, text }: { icon: any; title: string; text: string }) {
+function Pill({ text, positive = false }: { text: string; positive?: boolean }) {
+  return <div className="flex items-center gap-3 rounded-2xl border border-white/10 bg-white/[0.03] p-4"><CheckCircle2 size={18} className={positive ? "text-neon" : "text-white/38"} /><span>{text}</span></div>;
+}
+
+function PricingCard({ name, price, text, features, popular }: { name: string; price: string; text: string; features: string[]; popular?: boolean }) {
   return (
-    <div className="glass rounded-3xl p-6 transition hover:-translate-y-1 hover:border-purple-300/40">
-      <div className="mb-5 inline-flex rounded-2xl bg-white/10 p-3 text-cyan-300"><Icon size={24} /></div>
-      <h3 className="text-xl font-bold">{title}</h3>
-      <p className="mt-3 leading-7 text-white/60">{text}</p>
+    <div className={`rounded-[1.75rem] border p-6 ${popular ? "border-neon/35 bg-neon/10 green-glow" : "border-white/10 bg-white/[0.04]"}`}>
+      {popular && <p className="mb-4 inline-flex rounded-full bg-neon px-3 py-1 text-xs font-bold text-black">Most useful</p>}
+      <h3 className="text-2xl font-black">{name}</h3>
+      <p className="mt-3 text-3xl font-black text-neon">{price}</p>
+      <p className="mt-4 min-h-16 leading-7 text-white/58">{text}</p>
+      <div className="mt-6 space-y-3">
+        {features.map((feature) => <div key={feature} className="flex gap-3 text-sm text-white/70"><Zap size={16} className="mt-0.5 text-neon" />{feature}</div>)}
+      </div>
     </div>
   );
 }
