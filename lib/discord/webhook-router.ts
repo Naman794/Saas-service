@@ -17,5 +17,11 @@ export function getLeadWebhookUrls(lead: LeadRecord) {
   ];
 
   if (lead.priority === "high") urls.push(process.env.DISCORD_WEBHOOK_HIGH_PRIORITY);
-  return [...new Set(urls.filter(Boolean))] as string[];
+
+  const uniqueUrls: string[] = [];
+  urls.forEach((url) => {
+    if (url && !uniqueUrls.includes(url)) uniqueUrls.push(url);
+  });
+
+  return uniqueUrls;
 }
